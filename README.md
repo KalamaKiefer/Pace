@@ -7,7 +7,7 @@ A weight-loss app that answers one question every day: am I on pace?
 
 ## Status
 
-M0 Foundation: navigation skeleton, theme tokens, fonts, tooling. Screens are placeholders.
+M1 Engine + DB: calculation engine, SQLite schema, repositories and event bus, on top of the M0 foundation. Screens are still placeholders.
 
 ## Running it
 
@@ -43,6 +43,14 @@ npm test
 
 ```bash
 npm run doctor
+```
+
+## Changing the database
+
+Edit `src/db/schema/`, then generate a migration. The app applies it on next launch.
+
+```bash
+npm run db:generate
 ```
 
 ## Updating the design tokens

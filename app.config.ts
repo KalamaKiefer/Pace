@@ -37,6 +37,7 @@ const config: ExpoConfig = {
       },
     ],
     'expo-build-properties',
+    'expo-sqlite',
     '@sentry/react-native',
   ],
   experiments: {

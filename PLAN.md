@@ -542,7 +542,7 @@ MET values live in a table keyed by activity and intensity (Compendium of Physic
 surplus_steps = max(0, steps − step_goal)
 extra_burn    = surplus_steps × kcal_per_step     // shown on Steps tab and Home; never added to target
 ```
-Copy: "+3,000 steps over goal ≈ 115 kcal extra burn today. Your calorie goal stays the same." Steps from an on-foot cardio session that push the user past their goal are excluded from `surplus_steps`, because the session already credited them. That keeps one walk from counting twice.
+Copy: "+3,000 steps over goal ≈ 115 kcal extra burn today. Your calorie goal stays the same." Steps from an on-foot cardio session stay in `surplus_steps`: their energy was already taken out of the cardio credit, so each step is counted exactly once.
 
 ---
 

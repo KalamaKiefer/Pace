@@ -6,6 +6,7 @@ import {
   Inter_800ExtraBold,
   useFonts,
 } from '@expo-google-fonts/inter';
+import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -13,9 +14,15 @@ import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useUnistyles } from 'react-native-unistyles';
 
+import { openUserDatabase } from '@/db/client';
+import migrations from '@/db/migrations/migrations';
 import { initErrorReporting } from '@/services/errors';
 
 initErrorReporting();
+
+// Replaced by the signed-in user's database in M2.
+const db = openUserDatabase('local');
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -27,7 +34,9 @@ export default function RootLayout() {
     Inter_700Bold,
     Inter_800ExtraBold,
   });
-  const ready = fontsLoaded || fontError !== null;
+  const migration = useMigrations(db, migrations);
+  if (migration.error) throw migration.error;
+  const ready = (fontsLoaded || fontError !== null) && migration.success;
 
   useEffect(() => {
     if (ready) SplashScreen.hideAsync();
